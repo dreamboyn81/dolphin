@@ -53,11 +53,13 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-android-
 
-    - name: Build APK
+    # 替换 "Build APK" 步骤
+    - name: Build Release APK
       working-directory: ./Source/Android
       run: |
         chmod +x gradlew
-        ./gradlew assembleDebug --stacktrace --no-daemon
+        # 构建 release 版本（使用 debug 签名以便安装）
+        ./gradlew assembleRelease --stacktrace --no-daemon
 
     - name: Run tests
       working-directory: ./Source/Android
